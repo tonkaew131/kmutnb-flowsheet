@@ -114,3 +114,45 @@ export interface Course {
 		_text: string;
 	};
 }
+
+export interface Plan {
+	_attributes: {
+		scheme: string;
+		round: string;
+		option: string;
+	};
+	YearSem: YearSemester[];
+}
+
+export interface CoursePlan {
+	_attributes: {
+		code: string;
+	};
+	Block: {
+		_text: string;
+	};
+	Display: {
+		_text: string;
+	};
+	Crd: {
+		_text: string;
+	};
+	No_Hlec: {
+		_text: string;
+	};
+	No_Hlab: {
+		_text: string;
+	};
+}
+
+export interface YearSemester {
+	_attributes: {
+		/** Year */
+		year: string;
+		/** Semester */
+		sem: string;
+		/** Credit */
+		crd: string;
+	};
+	Course: CoursePlan[];
+}
