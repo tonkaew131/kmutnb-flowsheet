@@ -48,6 +48,10 @@
 	}
 </script>
 
+<a href="/" class="absolute top-2 left-2"
+	><button class="btn variant-filled-primary underline"> Back to Search</button>
+</a>
+
 <main class="font-noto w-11/12 mx-auto max-w-[92rem] py-24">
 	<h1 class="text-2xl font-bold text-center w-fit mx-auto py-4">
 		{curriculumData?.Curriculum.Info.NameThai._text}
