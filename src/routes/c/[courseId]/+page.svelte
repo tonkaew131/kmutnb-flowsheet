@@ -25,9 +25,10 @@
 	};
 
 	$: {
-		planData?.YearSem.forEach((yr) => {
-			let _tableData = { ...tableData };
+		let _tableData = { ...tableData };
+		_tableData.years = {};
 
+		planData?.YearSem.forEach((yr) => {
 			if (!_tableData.years[yr._attributes.year])
 				_tableData.years[yr._attributes.year] = { semester: [] };
 
