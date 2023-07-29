@@ -4,7 +4,8 @@
 		type CurriculumData,
 		type Plan,
 		getSubject,
-		getNode
+		getNode,
+		type CoursePlan
 	} from '$lib/types/curriculum';
 	import type { PageData } from './$types';
 
@@ -21,28 +22,49 @@
 
 	// Table
 	let tableData: CurriculumTableData = {
-		years: {}
+		years: {},
+		rows: {}
 	};
 
 	$: {
+		// Reset When Plan Changed
 		let _tableData = { ...tableData };
 		_tableData.years = {};
+		_tableData.rows = {};
 
 		planData?.YearSem.forEach((yr) => {
 			if (!_tableData.years[yr._attributes.year])
 				_tableData.years[yr._attributes.year] = { semester: [] };
 
 			_tableData?.years[yr._attributes.year].semester.push(yr._attributes.sem);
-			tableData = _tableData;
 		});
-	}
 
-	console.log(tableData);
+		let yearCounter = 1;
+		planData?.YearSem.forEach((yr) => {
+			let counter = 1;
+			yr.Course.forEach((sj) => {
+				if (!_tableData.rows[counter]) _tableData.rows[counter] = {};
+
+				_tableData.rows[counter][yearCounter] = sj;
+				counter += 1;
+			});
+
+			yearCounter += 1;
+		});
+
+		console.log(_tableData);
+		tableData = _tableData;
+	}
 
 	interface CurriculumTableData {
 		years: {
 			[year: string]: {
 				semester: string[];
+			};
+		};
+		rows: {
+			[rowsNum: string]: {
+				[colsNum: string]: CoursePlan;
 			};
 		};
 	}
@@ -80,7 +102,7 @@
 
 	<div class="table-container my-8">
 		<h2 class="mb-2 text-2xl font-bold">Flow Sheets</h2>
-		<table class="table">
+		<table class="table table-fixed">
 			<thead>
 				<tr class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0">
 					{#each Object.keys(tableData.years) || [] as yr}
@@ -103,9 +125,29 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Hi!</td>
-				</tr>
+				{#each Object.keys(tableData.rows) as rw}
+					<tr class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0">
+						{#each Object.keys(tableData.rows[rw]) as cl}
+							{@const sj = tableData.rows[rw][cl]}
+							<td class="card border-b-4 border-x-4 border-surface-50">
+								<p class="font-bold">
+									{sj._attributes.code}
+								</p>
+								<p class="italic">
+									{#if getSubject(curriculumData, sj._attributes.code)}
+										{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
+										{subjectData?.NameThai._text}
+										{subjectData?.Crd_Lec._text}
+										({subjectData?.Crd_Lec._text}-{getSubject(curriculumData, sj._attributes.code)
+											?.Crd_Lab._text})
+									{:else}
+										{getNode(curriculumData, sj.Block._text)?.NameThai._text}
+									{/if}
+								</p>
+							</td>
+						{/each}
+					</tr>
+				{/each}
 			</tbody>
 		</table>
 	</div>
