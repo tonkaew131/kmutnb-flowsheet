@@ -106,7 +106,7 @@
 
 	<div class="table-container my-8">
 		<h2 class="mb-2 text-2xl font-bold">Flow Sheets</h2>
-		<table class="table">
+		<table class="table bg-transparent">
 			<thead>
 				<tr class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0">
 					{#each Object.keys(tableData.years) || [] as yr}
@@ -130,7 +130,9 @@
 			</thead>
 			<tbody>
 				{#each Object.keys(tableData.rows) as rw}
-					<tr class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0">
+					<tr
+						class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0 !border-b-transparent"
+					>
 						{#each Object.keys(tableData.rows[rw]) as cl}
 							{@const sj = tableData.rows[rw][cl]}
 							<td
