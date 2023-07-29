@@ -45,7 +45,7 @@
 		let yearCounter = 1;
 		planData?.YearSem.forEach((yr) => {
 			let counter = 1;
-			yr.Course.forEach((sj) => {
+			(Array.isArray(yr.Course) ? yr.Course : [yr.Course]).forEach((sj) => {
 				if (!_tableData.rows[counter]) _tableData.rows[counter] = {};
 
 				_tableData.rows[counter][yearCounter] = sj;
@@ -55,9 +55,10 @@
 			yearCounter += 1;
 		});
 
-		console.log(_tableData);
 		tableData = _tableData;
 	}
+
+	console.log(tableData);
 
 	interface CurriculumTableData {
 		years: {
@@ -145,9 +146,10 @@
 									{#if getSubject(curriculumData, sj._attributes.code)}
 										{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
 										{subjectData?.NameThai._text}
-										{subjectData?.Crd_Lec._text}
-										({subjectData?.Crd_Lec._text}-{getSubject(curriculumData, sj._attributes.code)
-											?.Crd_Lab._text})
+										{subjectData?.Crd_Lec._text}({subjectData?.Crd_Lec._text}-{getSubject(
+											curriculumData,
+											sj._attributes.code
+										)?.Crd_Lab._text})
 									{:else}
 										{getNode(curriculumData, sj.Block._text)?.NameThai._text}
 									{/if}
@@ -180,9 +182,10 @@
 							{#if getSubject(curriculumData, sj._attributes.code)}
 								{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
 								{subjectData?.NameThai._text}
-								{subjectData?.Crd_Lec._text}
-								({subjectData?.Crd_Lec._text}-{getSubject(curriculumData, sj._attributes.code)
-									?.Crd_Lab._text})
+								{subjectData?.Crd_Lec._text}({subjectData?.Crd_Lec._text}-{getSubject(
+									curriculumData,
+									sj._attributes.code
+								)?.Crd_Lab._text})
 							{:else}
 								{getNode(curriculumData, sj.Block._text)?.NameThai._text}
 							{/if}
