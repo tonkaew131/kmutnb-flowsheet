@@ -1,14 +1,23 @@
+import { ENV_TYPE } from '$env/static/private';
+
+import type { PageServerLoad } from './$types';
+
 import type { CurriculumData } from '$lib/types/curriculum';
 import { convertTISToUTF8, convertXMLToJSON } from '$lib/utils';
-import type { PageServerLoad } from './$types';
 
 const KMUTNB_API = 'http://klogic.kmutnb.ac.th:8080/kris/curri/showXML.jsp?currCode=';
 
 export const load = (async ({ params }) => {
-	const response = await fetch(`http://localhost:5173/CS 64046034_raw.xml`);
-
 	const courseId = params.courseId;
-	// const response = await fetch(`${KMUTNB_API}${courseId}`);
+
+	let response;
+	if (ENV_TYPE === 'development') {
+		console.log('DEV MODE: Using local XML file');
+		response = await fetch(`http://localhost:5173/CS 64046034_raw.xml`);
+	} else {
+		response = await fetch(`${KMUTNB_API}${courseId}`);
+	}
+
 	const xml = await response.arrayBuffer();
 	const utf8XML = convertTISToUTF8(xml);
 
@@ -26,5 +35,5 @@ export const load = (async ({ params }) => {
 		};
 	}
 
-	return { status: 'success', data: json, courseId: params.courseId };
+	return { status: 'success', data: json, courseId: courseId };
 }) satisfies PageServerLoad;
