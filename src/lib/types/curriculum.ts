@@ -4,6 +4,13 @@ export interface CurriculumData {
 		Courses: {
 			Course: Course[];
 		};
+		Plans: {
+			/* โครงการต่าง */
+			Plan: Plan[];
+		};
+		Nodes: {
+			Node: NodeData[];
+		};
 	};
 }
 
@@ -155,4 +162,59 @@ export interface YearSemester {
 		crd: string;
 	};
 	Course: CoursePlan[];
+}
+
+export interface NodeData {
+	_attributes: {
+		code: string;
+	};
+	Parent: {
+		_text: string;
+	};
+	NameEng: {
+		_text: string;
+	};
+	NameThai: {
+		_text: string;
+	};
+	Type: {
+		_text: string;
+	};
+	Crd: {
+		_text: string;
+	};
+	Crd2: {
+		_text: string;
+	};
+	Option: {
+		_text: string;
+	};
+	MinYear: {
+		_text: string;
+	};
+	MaxYear: {
+		_text: string;
+	};
+}
+
+export function getPlansList(data: CurriculumData | undefined) {
+	if (!data) return [];
+
+	return data.Curriculum.Plans.Plan.map((pl) => {
+		const planCode = pl._attributes.scheme;
+
+		const nodePlan = data.Curriculum.Nodes.Node.find((n) => n._attributes.code === planCode);
+
+		return {
+			planCode: planCode,
+			planNameEng: nodePlan?.NameEng._text,
+			planeNameThai: nodePlan?.NameThai._text
+		};
+	});
+}
+
+export function getSubject(data: CurriculumData | undefined, subjectCode: string) {
+	if (!data) return undefined;
+
+	return data.Curriculum.Courses.Course.find((c) => c._attributes.code === subjectCode);
 }
