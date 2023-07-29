@@ -48,7 +48,7 @@
 	}
 </script>
 
-<a href="/" class="absolute top-2 left-2"
+<a href="/" class="absolute top-2 left-2 z-20"
 	><button class="btn variant-filled-primary underline"> Back to Search</button>
 </a>
 
@@ -95,14 +95,18 @@
 				<tr class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0">
 					{#each Object.keys(tableData.years) || [] as yr}
 						{#each tableData.years[yr].semester || [] as sem}
-							<th class="text-center border-x-4 border-surface-50" colspan="1">
+							<th class="text-center border-x-4 border-b-4 border-surface-50" colspan="1">
 								เทอม {sem}
 							</th>
 						{/each}
 					{/each}
 				</tr>
 			</thead>
-			<tbody />
+			<tbody>
+				<tr>
+					<td>Hi!</td>
+				</tr>
+			</tbody>
 		</table>
 	</div>
 
