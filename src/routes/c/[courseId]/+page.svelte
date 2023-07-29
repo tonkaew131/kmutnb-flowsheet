@@ -18,6 +18,33 @@
 	$: planData = curriculumData?.Curriculum.Plans.Plan.find(
 		(pn) => pn._attributes.scheme === selectedPlanCode
 	);
+
+	// Table
+	let tableData: CurriculumTableData = {
+		years: {}
+	};
+
+	$: {
+		planData?.YearSem.forEach((yr) => {
+			let _tableData = { ...tableData };
+
+			if (!_tableData.years[yr._attributes.year])
+				_tableData.years[yr._attributes.year] = { semester: [] };
+
+			_tableData?.years[yr._attributes.year].semester.push(yr._attributes.sem);
+			tableData = _tableData;
+		});
+	}
+
+	console.log(tableData);
+
+	interface CurriculumTableData {
+		years: {
+			[year: string]: {
+				semester: string[];
+			};
+		};
+	}
 </script>
 
 <main class="font-noto w-11/12 mx-auto max-w-[92rem] py-24">
@@ -46,14 +73,44 @@
 		</select>
 	</div>
 
+	<div class="table-container my-8">
+		<h2 class="mb-2 text-2xl font-bold">Flow Sheets</h2>
+		<table class="table">
+			<thead>
+				<tr class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0">
+					{#each Object.keys(tableData.years) || [] as yr}
+						<th
+							class="text-center border-b-4 border-x-4 border-surface-50"
+							colspan={tableData.years[yr].semester.length}
+						>
+							ปี {yr}
+						</th>
+					{/each}
+				</tr>
+				<tr class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0">
+					{#each Object.keys(tableData.years) || [] as yr}
+						{#each tableData.years[yr].semester || [] as sem}
+							<th class="text-center border-x-4 border-surface-50" colspan="1">
+								เทอม {sem}
+							</th>
+						{/each}
+					{/each}
+				</tr>
+			</thead>
+			<tbody />
+		</table>
+	</div>
+
 	<div>
+		<h2 class="mb-2 text-2xl font-bold">แผนการศึกษา</h2>
+
 		<!-- Each Year -->
 		{#each planData?.YearSem || [] as yr (`${selectedPlanCode}-${yr._attributes.year}-${yr._attributes.sem}`)}
 			<h3 class="font-bold my-2 text-xl ml-8 w-fit">
 				ปี {yr._attributes.year} เทอม {yr._attributes.sem} ({yr._attributes.crd} หน่วยกิต)
 				<div class="h-[2px] w-full bg-primary-500 rounded-full" />
 			</h3>
-			<!-- Each Subject -->
+			<!-- Each Subject  -->
 			<div class="flex flex-col gap-2">
 				{#each Array.isArray(yr.Course) ? yr.Course : [yr.Course] as sj}
 					<div class="card p-2">
