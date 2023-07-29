@@ -1,6 +1,11 @@
 <script lang="ts">
-	import { getPlansList, type CurriculumData, type Plan, getSubject } from '$lib/types/curriculum';
-	import { storeHighlightJs } from '@skeletonlabs/skeleton';
+	import {
+		getPlansList,
+		type CurriculumData,
+		type Plan,
+		getSubject,
+		getNode
+	} from '$lib/types/curriculum';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -43,24 +48,32 @@
 
 	<div>
 		<!-- Each Year -->
-		{#each planData?.YearSem || [] as yr}
+		{#each planData?.YearSem || [] as yr (`${selectedPlanCode}-${yr._attributes.year}-${yr._attributes.sem}`)}
 			<h3 class="font-bold py-2 text-xl indent-8">
 				ปี {yr._attributes.year} เทอม {yr._attributes.sem} ({yr._attributes.crd} หน่วยกิต)
 			</h3>
 			<!-- Each Subject -->
-			{#each yr.Course as sj}
-				<div class="card p-2">
-					<p class="font-bold">
-						{getSubject(curriculumData, sj._attributes.code)?._attributes.code}
-					</p>
-					<p class="italic">{getSubject(curriculumData, sj._attributes.code)?.NameThai._text}</p>
-				</div>
-				<!-- <pre class="pre mt-52">{JSON.stringify(
-						getSubject(curriculumData, sj._attributes.code),
-						null,
-						4
-					)}</pre> -->
-			{/each}
+			<div class="flex flex-col gap-2">
+				{#each Array.isArray(yr.Course) ? yr.Course : [yr.Course] as sj}
+					<div class="card p-2">
+						<p class="font-bold">
+							{sj._attributes.code}
+						</p>
+						<p class="italic">
+							{#if getSubject(curriculumData, sj._attributes.code)}
+								{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
+								{subjectData?.NameThai._text}
+								{subjectData?.Crd_Lec._text}
+								({subjectData?.Crd_Lec._text}-{getSubject(curriculumData, sj._attributes.code)
+									?.Crd_Lab._text})
+							{:else}
+								{getNode(curriculumData, sj.Block._text)?.NameThai._text}
+							{/if}
+						</p>
+					</div>
+					<!-- <pre class="pre mt-52">{JSON.stringify(sj, null, 4)}</pre> -->
+				{/each}
+			</div>
 		{/each}
 	</div>
 

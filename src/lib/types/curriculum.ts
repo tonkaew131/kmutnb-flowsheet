@@ -216,5 +216,14 @@ export function getPlansList(data: CurriculumData | undefined) {
 export function getSubject(data: CurriculumData | undefined, subjectCode: string) {
 	if (!data) return undefined;
 
-	return data.Curriculum.Courses.Course.find((c) => c._attributes.code === subjectCode);
+	const subject = data.Curriculum.Courses.Course.find((c) => c._attributes.code === subjectCode);
+
+	return subject;
+}
+
+export function getNode(data: CurriculumData | undefined, nodeCode: string) {
+	if (!data) return undefined;
+
+	const block = data.Curriculum.Nodes.Node.find((n) => n._attributes.code === nodeCode);
+	return block;
 }
