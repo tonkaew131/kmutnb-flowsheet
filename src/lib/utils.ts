@@ -9,5 +9,5 @@ export function convertTISToUTF8(tis620Text: string | ArrayBuffer): string {
 }
 
 export function convertXMLToJSON(XMLString: string) {
-	return xml2json(XMLString, { compact: true, spaces: 4 });
+	return xml2json(XMLString, { compact: true, spaces: 0 });
 }

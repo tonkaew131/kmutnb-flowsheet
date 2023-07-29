@@ -1,20 +1,20 @@
+import type { CurriculumData } from '$lib/types/curriculum';
 import { convertTISToUTF8, convertXMLToJSON } from '$lib/utils';
 import type { PageServerLoad } from './$types';
 
 const KMUTNB_API = 'http://klogic.kmutnb.ac.th:8080/kris/curri/showXML.jsp?currCode=';
 
 export const load = (async ({ params }) => {
-	const courseId = params.courseId;
-
 	const response = await fetch(`http://localhost:5173/CS 64046034_raw.xml`);
 
+	const courseId = params.courseId;
 	// const response = await fetch(`${KMUTNB_API}${courseId}`);
 	const xml = await response.arrayBuffer();
 	const utf8XML = convertTISToUTF8(xml);
 
-	let json;
+	let json: CurriculumData;
 	try {
-		json = convertXMLToJSON(utf8XML);
+		json = JSON.parse(convertXMLToJSON(utf8XML));
 	} catch (error) {
 		console.error(error);
 
@@ -26,5 +26,5 @@ export const load = (async ({ params }) => {
 		};
 	}
 
-	return { status: 'success', data: json };
+	return { status: 'success', data: json, courseId: params.courseId };
 }) satisfies PageServerLoad;
