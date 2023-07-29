@@ -20,7 +20,8 @@
 		>
 	</form>
 
-	<div class="absolute bottom-0 right-0 p-5">
+	<div class="absolute bottom-0 right-0 p-5 flex gap-4">
 		<a href="/docs" class="underline">Document</a>
+		<a href="https://github.com/tonkaew131/kmutnb-flowsheet" class="underline">Source</a>
 	</div>
 </div>
