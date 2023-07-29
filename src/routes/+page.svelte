@@ -9,13 +9,6 @@
 </script>
 
 <div class="container h-full mx-auto flex flex-col justify-center items-center font-noto">
-	<!-- <h1 class="h1 font-bold py-8">Coming Soon</h1>
-	<div>
-		<a href="/docs">
-			<button class="btn variant-filled-primary">Document</button>
-		</a>
-	</div> -->
-
 	<form on:submit|preventDefault={onSubmit}>
 		<label>
 			<span class="font-bold">รหัสหลักสูตร</span>
@@ -26,4 +19,8 @@
 			>ค้นหา</button
 		>
 	</form>
+
+	<div class="absolute bottom-0 right-0 p-5">
+		<a href="/docs" class="underline">Document</a>
+	</div>
 </div>
