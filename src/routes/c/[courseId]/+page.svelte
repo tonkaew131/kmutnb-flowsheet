@@ -49,8 +49,9 @@
 	<div>
 		<!-- Each Year -->
 		{#each planData?.YearSem || [] as yr (`${selectedPlanCode}-${yr._attributes.year}-${yr._attributes.sem}`)}
-			<h3 class="font-bold py-2 text-xl indent-8">
+			<h3 class="font-bold my-2 text-xl ml-8 w-fit">
 				ปี {yr._attributes.year} เทอม {yr._attributes.sem} ({yr._attributes.crd} หน่วยกิต)
+				<div class="h-[2px] w-full bg-primary-500 rounded-full" />
 			</h3>
 			<!-- Each Subject -->
 			<div class="flex flex-col gap-2">
