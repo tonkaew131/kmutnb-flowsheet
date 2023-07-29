@@ -32,12 +32,15 @@
 		_tableData.years = {};
 		_tableData.rows = {};
 
+		let totalCols = 0;
 		planData?.YearSem.forEach((yr) => {
 			if (!_tableData.years[yr._attributes.year])
 				_tableData.years[yr._attributes.year] = { semester: [] };
 
 			_tableData?.years[yr._attributes.year].semester.push(yr._attributes.sem);
+			totalCols += 1;
 		});
+		_tableData.totalCols = totalCols;
 
 		let yearCounter = 1;
 		planData?.YearSem.forEach((yr) => {
@@ -67,6 +70,7 @@
 				[colsNum: string]: CoursePlan;
 			};
 		};
+		totalCols: number;
 	}
 </script>
 
@@ -102,7 +106,7 @@
 
 	<div class="table-container my-8">
 		<h2 class="mb-2 text-2xl font-bold">Flow Sheets</h2>
-		<table class="table table-fixed">
+		<table class="table">
 			<thead>
 				<tr class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0">
 					{#each Object.keys(tableData.years) || [] as yr}
@@ -129,11 +133,13 @@
 					<tr class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0">
 						{#each Object.keys(tableData.rows[rw]) as cl}
 							{@const sj = tableData.rows[rw][cl]}
-							<td class="card border-b-4 border-x-4 border-surface-50">
+							<td
+								class="card border-b-4 border-x-4 border-surface-50 min-w-[11rem] w-[calc(100%_/_8)]"
+							>
 								<p class="font-bold">
 									{sj._attributes.code}
 								</p>
-								<p class="italic">
+								<p class="italic max-w-[15rem] whitespace-normal">
 									{#if getSubject(curriculumData, sj._attributes.code)}
 										{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
 										{subjectData?.NameThai._text}
