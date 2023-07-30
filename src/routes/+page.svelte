@@ -22,7 +22,6 @@
 		const faculty = e?.target?.value;
 
 		departments = courseList[faculty]?.departments;
-		console.log(departments);
 	}
 
 	let curriculums: {
@@ -34,7 +33,6 @@
 		const department = e?.target?.value;
 
 		curriculums = departments[department]?.curriculums;
-		console.log(curriculums);
 	}
 
 	let currCode: string;
