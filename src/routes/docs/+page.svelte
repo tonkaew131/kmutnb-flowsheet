@@ -114,32 +114,44 @@
 	];
 </script>
 
-<article class="prose prose-lg mx-auto py-36 font-noto">
+<article class="prose prose-lg mx-auto py-36 font-noto w-11/12">
 	<h1>KMUTNB's Course XML</h1>
 	<a href="/converter">
 		<button class="btn variant-filled-primary">TIS-620 Converter</button>
 	</a>
 
-	<h2>Encoding</h2>
-	<ul>
-		<li>
-			<code class="code before:content-[''] after:content-['']">TIS-620</code>
-		</li>
-	</ul>
+	<div>
+		<h2 class="mb-0">Encoding</h2>
+		<ul>
+			<li>
+				<code class="code before:content-[''] after:content-['']">TIS-620</code>
+			</li>
+		</ul>
+	</div>
 
-	<h2 class="">โหลดไฟล์ XML</h2>
-	<p class="">
-		http://klogic.kmutnb.ac.th:8080/kris/curri/showXML.jsp?currCode=<code
-			class="code before:content-[''] after:content-['']">COURSE_ID</code
-		>
-	</p>
-	<blockquote class="blockquote border-primary-500">
-		ตัวอย่าง: <a href="http://klogic.kmutnb.ac.th:8080/kris/curri/showXML.jsp?currCode=64046034"
-			>http://klogic.kmutnb.ac.th:8080/kris/curri/showXML.jsp?currCode=64046034</a
-		>
-	</blockquote>
+	<div>
+		<h2 class="mb-2">โหลดไฟล์ XML</h2>
+		<p class="">
+			http://klogic.kmutnb.ac.th:8080/kris/curri/showXML.jsp?currCode=<code
+				class="code before:content-[''] after:content-['']">COURSE_ID</code
+			>
+		</p>
+		<blockquote class="blockquote border-primary-500">
+			ตัวอย่าง: <a href="http://klogic.kmutnb.ac.th:8080/kris/curri/showXML.jsp?currCode=64046034"
+				>http://klogic.kmutnb.ac.th:8080/kris/curri/showXML.jsp?currCode=64046034</a
+			>
+		</blockquote>
+	</div>
 
 	<div class="table-container">
+		<h2 class="mb-2">โครงสร้าง XML XML</h2>
+		<blockquote class="blockquote border-error-500">
+			ยังไม่เสร็จ 😭😭 ดู <a
+				href="https://github.com/tonkaew131/kmutnb-flowsheet/blob/main/src/lib/course.ts"
+				>course.ts</a
+			> แทนก่อน
+		</blockquote>
+
 		<table class="table">
 			<thead>
 				<tr>
