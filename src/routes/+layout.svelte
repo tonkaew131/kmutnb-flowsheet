@@ -4,8 +4,11 @@
 	import '../app.postcss';
 
 	import { AppShell } from '@skeletonlabs/skeleton';
+
+	import Analytics from '$lib/analytics.svelte';
 </script>
 
+<Analytics />
 <AppShell>
 	<slot />
 </AppShell>
