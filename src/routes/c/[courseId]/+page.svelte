@@ -22,6 +22,7 @@
 	const curriculumData: CurriculumData | undefined = data?.data;
 
 	let isThai: boolean = false;
+	let isShowInfo: boolean = true;
 
 	const plansList = getPlansList(curriculumData);
 
@@ -88,6 +89,8 @@
 	}
 
 	function onClickSubject(subjectCode: string) {
+		if (!isShowInfo) return;
+
 		const subject = getSubject(curriculumData, subjectCode);
 		if (!subject) {
 			const modal: ModalSettings = {
@@ -198,6 +201,11 @@
 		<div class="flex flex-col">
 			<p class="font-bold">ภาษา <span class="opacity-50">(EN/TH)</span></p>
 			<SlideToggle name="slide" bind:checked={isThai} active="bg-primary-500" />
+		</div>
+
+		<div class="flex flex-col">
+			<p class="font-bold">แสดงข้อมูล</p>
+			<SlideToggle name="slide" bind:checked={isShowInfo} active="bg-primary-500" />
 		</div>
 	</div>
 
