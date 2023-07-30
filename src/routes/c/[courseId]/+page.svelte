@@ -5,7 +5,8 @@
 		type Plan,
 		getSubject,
 		getNode,
-		type CoursePlan
+		type CoursePlan,
+		getSubjectPrerequisite
 	} from '$lib/types/curriculum';
 	import {
 		Accordion,
@@ -18,6 +19,8 @@
 
 	export let data: PageData;
 	const curriculumData: CurriculumData | undefined = data?.data;
+
+	let isThai: boolean = false;
 
 	const plansList = getPlansList(curriculumData);
 
@@ -94,16 +97,26 @@
 			return;
 		}
 
+		const subjectPrereq = getSubjectPrerequisite(curriculumData, subjectCode);
+
+		const subjectPrereqStr = `- วิชาบังคับ: ${subjectPrereq?.prerequisite.map((s) => {
+			return `${s} ${
+				isThai
+					? getSubject(curriculumData, s)?.NameThai._text
+					: getSubject(curriculumData, s)?.NameEng._text
+			}`;
+		})}\n`;
+
 		const modal: ModalSettings = {
 			type: 'alert',
 			// Data
 			title: `${subjectCode} - ${subject?.NameThai._text} ${subject?.Crd_Lec._text}(${subject?.Crd_Lec._text}-${subject?.Crd_Lab._text})`,
-			body: `- ${subject.NameEng._text} (${subject.ShrtName._text})\n\n- ${subject.DescThai._text}\n\n- ${subject.DescEng._text}`
+			body: `- ${subject.NameEng._text} (${subject.ShrtName._text})\n${
+				subjectPrereq?.prerequisite.length != 0 ? subjectPrereqStr : ''
+			}\n- ${subject.DescThai._text}\n- ${subject.DescEng._text}`
 		};
 		modalStore.trigger(modal);
 	}
-
-	let isThai: boolean = false;
 </script>
 
 <a href="/" class="absolute top-2 left-2 z-20"
@@ -207,6 +220,17 @@
 				{/each}
 			</tbody>
 		</table>
+
+		<!-- Legends -->
+		<div class="card p-4 w-fit mt-2">
+			<h3 class="font-bold text-lg">รายละเอียดสี</h3>
+			<ul>
+				<li class="flex items-center gap-2">
+					<div class="bg-primary-500 w-6 h-6 rounded-token" />
+					<span>วิชาบังคับ</span>
+				</li>
+			</ul>
+		</div>
 	</div>
 
 	<div>

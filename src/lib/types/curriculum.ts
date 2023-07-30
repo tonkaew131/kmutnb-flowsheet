@@ -11,6 +11,9 @@ export interface CurriculumData {
 		Nodes: {
 			Node: NodeData[];
 		};
+		Prerequisites: {
+			Prerequisite: PrerequisiteData[];
+		};
 	};
 }
 
@@ -197,6 +200,23 @@ export interface NodeData {
 	};
 }
 
+export interface PrerequisiteData {
+	_attributes: {
+		code: string;
+	};
+	MinCredit: {
+		_text: string;
+	};
+	Pre1: {
+		_text: string;
+	};
+	Co1: {
+		_text: string;
+	};
+	Op1: any;
+	Comment: any;
+}
+
 export function getPlansList(data: CurriculumData | undefined) {
 	if (!data) return [];
 
@@ -230,4 +250,27 @@ export function getNode(data: CurriculumData | undefined, nodeCode: string) {
 
 	const block = data.Curriculum.Nodes.Node.find((n) => n._attributes.code === nodeCode);
 	return block;
+}
+
+export function getSubjectPrerequisite(
+	data: CurriculumData | undefined,
+	subjectCode: string
+): SubjectPrerequisite | undefined {
+	if (!data) {
+		return undefined;
+	}
+
+	const prepare = data.Curriculum.Prerequisites.Prerequisite.filter(
+		(p) => p._attributes.code === subjectCode
+	).map((p) => p.Pre1._text);
+
+	return { subjectCode, prerequisite: prepare, PrerequisiteSequence: [] };
+}
+
+interface SubjectPrerequisite {
+	subjectCode: string;
+	/** Course Prerequisites: รายวิชาที่ต้องการก่อนหน้า */
+	prerequisite: string[];
+	/** Course Prerequisite Sequence: ลำดับก่อนหน้าที่ต้องทำก่อนเรียนคอร์ส */
+	PrerequisiteSequence?: string[];
 }
