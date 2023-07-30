@@ -290,15 +290,15 @@
 			<h3 class="font-bold text-lg">รายละเอียดสี</h3>
 			<ul>
 				<li class="flex items-center gap-2 py-1">
-					<div class="bg-yellow-100 w-6 h-6 rounded-token" />
+					<div class="bg-yellow-100 w-6 h-6 rounded-token border-2 border-white" />
 					<span>วิชาบังคับ</span>
 				</li>
 				<li class="flex items-center gap-2 py-1">
-					<div class="bg-lime-100 w-6 h-6 rounded-token" />
+					<div class="bg-lime-100 w-6 h-6 rounded-token border-2 border-white" />
 					<span>วิชาบังคับ (ก่อน)</span>
 				</li>
 				<li class="flex items-center gap-2 py-1">
-					<div class="bg-blue-200 w-6 h-6 rounded-token" />
+					<div class="bg-blue-200 w-6 h-6 rounded-token border-2 border-white" />
 					<span>วิชาต่อ</span>
 				</li>
 			</ul>
