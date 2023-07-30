@@ -238,9 +238,11 @@
 										on:click={(e) => onClickSubject(sj._attributes.code)}
 										class="hover:cursor-pointer text-left w-full h-full"
 									>
-										<p class="font-bold">
+										<div class="font-bold flex items-center gap-1">
+											<!-- {getNode(curriculumData, sj.Block._text)?.NameThai._text}
+											<div class="w-2 h-2 bg-blue-500 rounded-full" /> -->
 											{sj._attributes.code}
-										</p>
+										</div>
 										<p class="italic max-w-[15rem] whitespace-normal">
 											{#if getSubject(curriculumData, sj._attributes.code)}
 												{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
@@ -250,7 +252,10 @@
 													sj._attributes.code
 												)?.Crd_Lab._text})
 											{:else}
-												{getNode(curriculumData, sj.Block._text)?.NameThai._text}
+												{@const nodeData = getNode(curriculumData, sj.Block._text)}
+												{nodeData?.NameThai._text}{#if nodeData?.Parent._text}
+													ใน{getNode(curriculumData, nodeData.Parent._text)?.NameThai._text}
+												{/if}
 											{/if}
 										</p>
 									</button>

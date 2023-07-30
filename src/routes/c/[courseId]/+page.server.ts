@@ -14,7 +14,7 @@ export const load = (async ({ params }) => {
 	let response;
 	if (ENV_TYPE === 'development') {
 		console.log('DEV MODE: Using local XML file');
-		response = await fetch(`http://localhost:5173/showXML.jsp`);
+		response = await fetch(`http://localhost:5173/CS 64046034_raw.xml`);
 	} else {
 		try {
 			response = await fetch(`${KMUTNB_API}${courseId}`);
