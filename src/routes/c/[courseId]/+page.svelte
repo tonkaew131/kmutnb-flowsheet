@@ -23,9 +23,11 @@
 
 	let selectedPlanCode: string | undefined = undefined;
 	let planData: Plan | undefined;
-	$: planData = curriculumData?.Curriculum.Plans.Plan.find(
-		(pn) => pn._attributes.scheme === selectedPlanCode
-	);
+	$: planData = (
+		Array.isArray(curriculumData?.Curriculum.Plans.Plan)
+			? curriculumData?.Curriculum.Plans.Plan || []
+			: [curriculumData?.Curriculum.Plans.Plan]
+	).find((pn) => pn._attributes.scheme === selectedPlanCode);
 
 	// Table
 	let tableData: CurriculumTableData = {

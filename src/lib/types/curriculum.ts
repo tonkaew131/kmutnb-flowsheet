@@ -200,7 +200,11 @@ export interface NodeData {
 export function getPlansList(data: CurriculumData | undefined) {
 	if (!data) return [];
 
-	return data.Curriculum.Plans.Plan.map((pl) => {
+	const plans = Array.isArray(data.Curriculum.Plans.Plan)
+		? data.Curriculum.Plans.Plan
+		: [data.Curriculum.Plans.Plan];
+
+	return plans.map((pl) => {
 		const planCode = pl._attributes.scheme;
 
 		const nodePlan = data.Curriculum.Nodes.Node.find((n) => n._attributes.code === planCode);
