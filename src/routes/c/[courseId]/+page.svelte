@@ -7,6 +7,7 @@
 		getNode,
 		type CoursePlan
 	} from '$lib/types/curriculum';
+	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -79,7 +80,7 @@
 	><button class="btn variant-filled-primary underline"> Back to Search</button>
 </a>
 
-<main class="font-noto w-11/12 mx-auto max-w-[92rem] py-24">
+<main class="font-noto w-11/12 mx-auto max-w-[92rem] py-24 pb-48">
 	<h1 class="text-2xl font-bold text-center w-fit mx-auto py-4">
 		{curriculumData?.Curriculum.Info.NameThai._text}
 		<div class="relative w-full">
@@ -197,5 +198,16 @@
 		{/each}
 	</div>
 
-	<pre class="pre mt-52">{JSON.stringify(curriculumData, null, 4)}</pre>
+	<div class="my-8">
+		<h2 class="mb-2 text-2xl font-bold">Data Source</h2>
+		<Accordion>
+			<AccordionItem>
+				<svelte:fragment slot="lead">-</svelte:fragment>
+				<svelte:fragment slot="summary"><span class="font-bold">JSON</span></svelte:fragment>
+				<svelte:fragment slot="content">
+					<pre class="pre">{JSON.stringify(curriculumData, null, 4)}</pre>
+				</svelte:fragment>
+			</AccordionItem>
+		</Accordion>
+	</div>
 </main>
