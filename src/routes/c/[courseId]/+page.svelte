@@ -136,9 +136,9 @@
 
 		subjectReq.prerequisite.forEach((s) => {
 			if (type == 'enter') {
-				document.getElementById(s)?.classList.add('bg-yellow-100');
+				document.getElementById(s)?.classList.add('!bg-yellow-100');
 			} else {
-				document.getElementById(s)?.classList.remove('bg-yellow-100');
+				document.getElementById(s)?.classList.remove('!bg-yellow-100');
 			}
 		});
 
@@ -146,9 +146,9 @@
 			subjectReq.prerequisiteSequence.forEach((s) => {
 				if (subjectReq?.prerequisite.includes(s)) return;
 				if (type == 'enter') {
-					document.getElementById(s)?.classList.add('bg-lime-100');
+					document.getElementById(s)?.classList.add('!bg-lime-100');
 				} else {
-					document.getElementById(s)?.classList.remove('bg-lime-100');
+					document.getElementById(s)?.classList.remove('!bg-lime-100');
 				}
 			});
 		}
@@ -200,7 +200,7 @@
 				<tr class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0">
 					{#each Object.keys(tableData.years) || [] as yr}
 						<th
-							class="text-center border-b-4 border-x-4 border-surface-50"
+							class="text-center border-b-4 border-x-4 border-surface-50 bg-surface-300"
 							colspan={tableData.years[yr].semester.length}
 						>
 							ปี {yr}
@@ -210,7 +210,10 @@
 				<tr class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0">
 					{#each Object.keys(tableData.years) || [] as yr}
 						{#each tableData.years[yr].semester || [] as sem}
-							<th class="text-center border-x-4 border-b-4 border-surface-50" colspan="1">
+							<th
+								class="text-center border-x-4 border-b-4 border-surface-50 bg-surface-300"
+								colspan="1"
+							>
 								เทอม {sem}
 							</th>
 						{/each}
@@ -220,13 +223,13 @@
 			<tbody>
 				{#each Object.keys(tableData.rows) as rw}
 					<tr
-						class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0 !border-b-transparent !bg-transparent"
+						class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0 !border-b-transparent !bg-transparent [&>*:nth-child(2n)]:bg-surface-200"
 					>
 						{#each Array.from({ length: tableData.totalCols || 0 }, (_, i) => i + 1) as cl}
 							{#if cl in tableData.rows[rw]}
 								{@const sj = tableData.rows[rw][cl]}
 								<td
-									class="card border-b-4 border-x-4 border-surface-50 min-w-[11rem] w-[calc(100%_/_8)] hover:bg-primary-200"
+									class="card border-b-4 border-x-4 border-surface-50 min-w-[11rem] w-[calc(100%_/_8)] hover:!bg-primary-200"
 									id={sj._attributes.code}
 									on:mouseenter={(e) => onOverSubject('enter', sj._attributes.code)}
 									on:mouseleave={(e) => onOverSubject('leave', sj._attributes.code)}
