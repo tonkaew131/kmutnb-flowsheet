@@ -254,25 +254,42 @@ export function getNode(data: CurriculumData | undefined, nodeCode: string) {
 
 export function getSubjectPrerequisite(
 	data: CurriculumData | undefined,
-	subjectCode: string
+	subjectCode: string,
+	recursive = false
 ): SubjectPrerequisite | undefined {
 	if (!data) {
 		return undefined;
 	}
 
-	const prepare = data.Curriculum.Prerequisites.Prerequisite.filter(
+	const findPrerequisiteSequence = (code: string): string[] => {
+		const prerequisites: PrerequisiteData[] = data.Curriculum.Prerequisites.Prerequisite.filter(
+			(p) => p._attributes.code === code
+		);
+
+		if (prerequisites.length === 0) {
+			return [];
+		}
+
+		let sequence: string[] = [];
+		for (const prereq of prerequisites) {
+			sequence.push(prereq.Pre1._text);
+			sequence = [...sequence, ...findPrerequisiteSequence(prereq.Pre1._text)];
+		}
+
+		return sequence;
+	};
+
+	const prepare: string[] = data.Curriculum.Prerequisites.Prerequisite.filter(
 		(p) => p._attributes.code === subjectCode
 	).map((p) => p.Pre1._text);
 
-	let prepareSequence: string[] = [];
-	prepare.forEach((p) => {
-		prepareSequence = [
-			...prepareSequence,
-			...data.Curriculum.Prerequisites.Prerequisite.filter((pq) => pq._attributes.code === p).map(
-				(p) => p.Pre1._text
-			)
-		];
-	});
+	const prepareSequence: string[] = [];
+	if (recursive) {
+		for (const p of prepare) {
+			prepareSequence.push(p);
+			prepareSequence.push(...findPrerequisiteSequence(p));
+		}
+	}
 
 	return { subjectCode, prerequisite: prepare, prerequisiteSequence: prepareSequence };
 }

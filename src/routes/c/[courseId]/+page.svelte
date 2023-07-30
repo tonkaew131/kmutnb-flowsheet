@@ -127,7 +127,7 @@
 		if (subjectCode in subjectPrereqTable) {
 			subjectReq = subjectPrereqTable[subjectCode];
 		} else {
-			subjectReq = getSubjectPrerequisite(curriculumData, subjectCode);
+			subjectReq = getSubjectPrerequisite(curriculumData, subjectCode, true);
 			if (!subjectReq) {
 				return;
 			}
@@ -144,6 +144,7 @@
 
 		if (subjectReq.prerequisiteSequence) {
 			subjectReq.prerequisiteSequence.forEach((s) => {
+				if (subjectReq?.prerequisite.includes(s)) return;
 				if (type == 'enter') {
 					document.getElementById(s)?.classList.add('bg-lime-100');
 				} else {
