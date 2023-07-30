@@ -6,7 +6,7 @@ export interface CurriculumData {
 		};
 		Plans: {
 			/* โครงการต่าง */
-			Plan: Plan[];
+			Plan: Plan[] | Plan;
 		};
 		Nodes: {
 			Node: NodeData[];
