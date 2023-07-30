@@ -10,7 +10,7 @@
 
 <svelte:head>
 	<title>KMUTNB Flowsheet by @tonkaew131</title>
-	<meta name="description" content="KMUTNB Flowsheet ดูแผนการเรียน by @tonkaew131" />
+	<meta name="description" content="ดูแผนการเรียนมจพ by @tonkaew131" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta name="theme-color" content="#f77100" />
 
@@ -19,8 +19,8 @@
 	<!-- <link rel="manifest" href="/manifest.json" /> -->
 
 	<meta property="og:title" content="KMUTNB Flowsheet by @tonkaew131" />
-	<meta property="og:description" content="KMUTNB Flowsheet by @tonkaew131" />
-	<meta property="og:image" content="/banner.png" />
+	<meta property="og:description" content="ดูแผนการเรียนมจพ by @tonkaew131" />
+	<meta property="og:image" content="/webpanel.png" />
 	<meta property="og:url" content="https://kmutnb-flowsheet.vercel.app/" />
 	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
