@@ -264,7 +264,17 @@ export function getSubjectPrerequisite(
 		(p) => p._attributes.code === subjectCode
 	).map((p) => p.Pre1._text);
 
-	return { subjectCode, prerequisite: prepare, prerequisiteSequence: [] };
+	let prepareSequence: string[] = [];
+	prepare.forEach((p) => {
+		prepareSequence = [
+			...prepareSequence,
+			...data.Curriculum.Prerequisites.Prerequisite.filter((pq) => pq._attributes.code === p).map(
+				(p) => p.Pre1._text
+			)
+		];
+	});
+
+	return { subjectCode, prerequisite: prepare, prerequisiteSequence: prepareSequence };
 }
 
 export interface SubjectPrerequisite {

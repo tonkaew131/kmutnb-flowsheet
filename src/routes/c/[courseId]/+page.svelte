@@ -134,7 +134,6 @@
 			subjectPrereqTable[subjectCode] = subjectReq;
 		}
 
-		// console.log(type + ' ' + subjectCode + ' ' + subjectReq.prerequisite);
 		subjectReq.prerequisite.forEach((s) => {
 			if (type == 'enter') {
 				document.getElementById(s)?.classList.add('bg-yellow-100');
@@ -142,6 +141,16 @@
 				document.getElementById(s)?.classList.remove('bg-yellow-100');
 			}
 		});
+
+		if (subjectReq.prerequisiteSequence) {
+			subjectReq.prerequisiteSequence.forEach((s) => {
+				if (type == 'enter') {
+					document.getElementById(s)?.classList.add('bg-lime-100');
+				} else {
+					document.getElementById(s)?.classList.remove('bg-lime-100');
+				}
+			});
+		}
 		return;
 	}
 </script>
@@ -255,9 +264,13 @@
 		<div class="card p-4 w-fit mt-2">
 			<h3 class="font-bold text-lg">รายละเอียดสี</h3>
 			<ul>
-				<li class="flex items-center gap-2">
+				<li class="flex items-center gap-2 py-1">
 					<div class="bg-yellow-100 w-6 h-6 rounded-token" />
 					<span>วิชาบังคับ</span>
+				</li>
+				<li class="flex items-center gap-2 py-1">
+					<div class="bg-lime-100 w-6 h-6 rounded-token" />
+					<span>วิชาบังคับ (ก่อน)</span>
 				</li>
 			</ul>
 		</div>
