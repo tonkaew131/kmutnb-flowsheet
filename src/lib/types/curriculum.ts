@@ -284,14 +284,26 @@ export function getSubjectPrerequisite(
 	).map((p) => p.Pre1._text);
 
 	const prepareSequence: string[] = [];
+	let postrequisite: string[] = [];
 	if (recursive) {
 		for (const p of prepare) {
 			prepareSequence.push(p);
 			prepareSequence.push(...findPrerequisiteSequence(p));
 		}
+
+		postrequisite = [
+			...data.Curriculum.Prerequisites.Prerequisite.filter((p) => p.Pre1._text === subjectCode).map(
+				(p) => p._attributes.code
+			)
+		];
 	}
 
-	return { subjectCode, prerequisite: prepare, prerequisiteSequence: prepareSequence };
+	return {
+		subjectCode,
+		prerequisite: prepare,
+		prerequisiteSequence: prepareSequence,
+		postrequisite: postrequisite
+	};
 }
 
 export interface SubjectPrerequisite {
@@ -300,4 +312,5 @@ export interface SubjectPrerequisite {
 	prerequisite: string[];
 	/** Course Prerequisite Sequence: ลำดับก่อนหน้าที่ต้องทำก่อนเรียนคอร์ส */
 	prerequisiteSequence?: string[];
+	postrequisite?: string[];
 }

@@ -134,6 +134,14 @@
 			subjectPrereqTable[subjectCode] = subjectReq;
 		}
 
+		subjectReq.postrequisite?.forEach((s) => {
+			if (type == 'enter') {
+				document.getElementById(s)?.classList.add('!bg-blue-200');
+			} else {
+				document.getElementById(s)?.classList.remove('!bg-blue-200');
+			}
+		});
+
 		subjectReq.prerequisite.forEach((s) => {
 			if (type == 'enter') {
 				document.getElementById(s)?.classList.add('!bg-yellow-100');
@@ -280,6 +288,10 @@
 				<li class="flex items-center gap-2 py-1">
 					<div class="bg-lime-100 w-6 h-6 rounded-token" />
 					<span>วิชาบังคับ (ก่อน)</span>
+				</li>
+				<li class="flex items-center gap-2 py-1">
+					<div class="bg-blue-200 w-6 h-6 rounded-token" />
+					<span>วิชาต่อ</span>
 				</li>
 			</ul>
 		</div>
