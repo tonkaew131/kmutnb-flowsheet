@@ -7,7 +7,13 @@
 		getNode,
 		type CoursePlan
 	} from '$lib/types/curriculum';
-	import { Accordion, AccordionItem, modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+	import {
+		Accordion,
+		AccordionItem,
+		modalStore,
+		type ModalSettings,
+		SlideToggle
+	} from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -94,6 +100,8 @@
 		};
 		modalStore.trigger(modal);
 	}
+
+	let isThai: boolean = false;
 </script>
 
 <a href="/" class="absolute top-2 left-2 z-20"
@@ -115,15 +123,22 @@
 		</div>
 	</h1>
 
-	<div class="flex flex-col">
-		<p class="font-bold">แผนการศึกษา</p>
-		<select class="select w-fit" bind:value={selectedPlanCode}>
-			{#each plansList as pn}
-				<option value={pn.planCode}>
-					{pn.planeNameThai}
-				</option>
-			{/each}
-		</select>
+	<div class="flex gap-8 items-center">
+		<div class="flex flex-col">
+			<p class="font-bold">แผนการศึกษา</p>
+			<select class="select w-fit" bind:value={selectedPlanCode}>
+				{#each plansList as pn}
+					<option value={pn.planCode}>
+						{pn.planeNameThai}
+					</option>
+				{/each}
+			</select>
+		</div>
+
+		<div class="flex flex-col">
+			<p class="font-bold">ภาษา (EN/TH)</p>
+			<SlideToggle name="slide" bind:checked={isThai} />
+		</div>
 	</div>
 
 	<div class="table-container my-8">
@@ -170,7 +185,7 @@
 									<p class="italic max-w-[15rem] whitespace-normal">
 										{#if getSubject(curriculumData, sj._attributes.code)}
 											{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
-											{subjectData?.NameThai._text}
+											{isThai ? subjectData?.NameThai._text : subjectData?.NameEng._text}
 											{subjectData?.Crd_Lec._text}({subjectData?.Crd_Lec._text}-{getSubject(
 												curriculumData,
 												sj._attributes.code
@@ -207,7 +222,7 @@
 						<p class="italic">
 							{#if getSubject(curriculumData, sj._attributes.code)}
 								{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
-								{subjectData?.NameThai._text}
+								{isThai ? subjectData?.NameThai._text : subjectData?.NameEng._text}
 								{subjectData?.Crd_Lec._text}({subjectData?.Crd_Lec._text}-{getSubject(
 									curriculumData,
 									sj._attributes.code
