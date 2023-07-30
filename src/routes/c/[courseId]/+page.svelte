@@ -158,7 +158,7 @@
 						{#each Object.keys(tableData.rows[rw]) as cl}
 							{@const sj = tableData.rows[rw][cl]}
 							<td
-								class="card border-b-4 border-x-4 border-surface-50 min-w-[11rem] w-[calc(100%_/_8)]"
+								class="card border-b-4 border-x-4 border-surface-50 min-w-[11rem] w-[calc(100%_/_8)] hover:bg-primary-200"
 							>
 								<button
 									on:click={(e) => onClickSubject(sj._attributes.code)}
