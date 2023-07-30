@@ -1,7 +1,7 @@
 <article class="prose mx-auto pt-12 pb-48">
-	<h1 class="h2 py-8">Cookie Policy for tinyTCAS</h1>
+	<h1 class="h2 py-8">Cookie Policy for KMUTNB Flowsheet</h1>
 
-	<p>This is the Cookie Policy for tinyTCAS, accessible from tiny-tcas.vercel.app</p>
+	<p>This is the Cookie Policy for KMUTNB Flowsheet, accessible from kmutnb-flowsheet.vercel.app</p>
 
 	<p class="pt-4">
 		<strong>- What Are Cookies</strong>
