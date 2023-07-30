@@ -77,7 +77,14 @@
 
 	function onClickSubject(subjectCode: string) {
 		const subject = getSubject(curriculumData, subjectCode);
-		if (!subject) return;
+		if (!subject) {
+			const modal: ModalSettings = {
+				type: 'alert',
+				title: `ไม่พบข้อมูลวิชา ${subjectCode}`
+			};
+			modalStore.trigger(modal);
+			return;
+		}
 
 		const modal: ModalSettings = {
 			type: 'alert',
