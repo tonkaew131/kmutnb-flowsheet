@@ -6,7 +6,8 @@
 		getSubject,
 		getNode,
 		type CoursePlan,
-		getSubjectPrerequisite
+		getSubjectPrerequisite,
+		type SubjectPrerequisite
 	} from '$lib/types/curriculum';
 	import {
 		Accordion,
@@ -117,6 +118,32 @@
 		};
 		modalStore.trigger(modal);
 	}
+
+	// Optimize a bit
+	let subjectPrereqTable: { [key: string]: SubjectPrerequisite } = {};
+	function onOverSubject(type: 'enter' | 'leave', subjectCode: string) {
+		let subjectReq: SubjectPrerequisite | undefined;
+
+		if (subjectCode in subjectPrereqTable) {
+			subjectReq = subjectPrereqTable[subjectCode];
+		} else {
+			subjectReq = getSubjectPrerequisite(curriculumData, subjectCode);
+			if (!subjectReq) {
+				return;
+			}
+			subjectPrereqTable[subjectCode] = subjectReq;
+		}
+
+		// console.log(type + ' ' + subjectCode + ' ' + subjectReq.prerequisite);
+		subjectReq.prerequisite.forEach((s) => {
+			if (type == 'enter') {
+				document.getElementById(s)?.classList.add('bg-yellow-100');
+			} else {
+				document.getElementById(s)?.classList.remove('bg-yellow-100');
+			}
+		});
+		return;
+	}
 </script>
 
 <a href="/" class="absolute top-2 left-2 z-20"
@@ -190,6 +217,9 @@
 								{@const sj = tableData.rows[rw][cl]}
 								<td
 									class="card border-b-4 border-x-4 border-surface-50 min-w-[11rem] w-[calc(100%_/_8)] hover:bg-primary-200"
+									id={sj._attributes.code}
+									on:mouseenter={(e) => onOverSubject('enter', sj._attributes.code)}
+									on:mouseleave={(e) => onOverSubject('leave', sj._attributes.code)}
 								>
 									<button
 										on:click={(e) => onClickSubject(sj._attributes.code)}
@@ -226,7 +256,7 @@
 			<h3 class="font-bold text-lg">รายละเอียดสี</h3>
 			<ul>
 				<li class="flex items-center gap-2">
-					<div class="bg-primary-500 w-6 h-6 rounded-token" />
+					<div class="bg-yellow-100 w-6 h-6 rounded-token" />
 					<span>วิชาบังคับ</span>
 				</li>
 			</ul>

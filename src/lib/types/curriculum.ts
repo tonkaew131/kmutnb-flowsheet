@@ -264,13 +264,13 @@ export function getSubjectPrerequisite(
 		(p) => p._attributes.code === subjectCode
 	).map((p) => p.Pre1._text);
 
-	return { subjectCode, prerequisite: prepare, PrerequisiteSequence: [] };
+	return { subjectCode, prerequisite: prepare, prerequisiteSequence: [] };
 }
 
-interface SubjectPrerequisite {
+export interface SubjectPrerequisite {
 	subjectCode: string;
 	/** Course Prerequisites: รายวิชาที่ต้องการก่อนหน้า */
 	prerequisite: string[];
 	/** Course Prerequisite Sequence: ลำดับก่อนหน้าที่ต้องทำก่อนเรียนคอร์ส */
-	PrerequisiteSequence?: string[];
+	prerequisiteSequence?: string[];
 }
