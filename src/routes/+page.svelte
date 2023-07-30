@@ -100,5 +100,11 @@
 		<button type="submit" class="btn variant-ghost-primary w-full font-bold tracking-widest mt-4"
 			>ค้นหา</button
 		>
+
+		<blockquote class="blockquote border-primary-500 mt-6 max-w-lg">
+			เนื่องด้วย klogic จะย้ายระบบในวันที่ 7 สิงหาแล้วจะไม่สามารถดึงข้อมูลตรงๆ ได้อีก
+			ถ้าหากต้องการดูข้อมูลหลังจากวันที่ 7 สิงหา ให้โหลดไฟล์ XML
+			ของหลักสูตรนั้นไว้แล้วนำมาอัพโหลดที่นี่ (ยังไม่ได้ทำ)
+		</blockquote>
 	</form>
 </div>
