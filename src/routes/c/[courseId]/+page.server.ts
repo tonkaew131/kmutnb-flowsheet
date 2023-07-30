@@ -15,9 +15,18 @@ export const load = (async ({ params }) => {
 		console.log('DEV MODE: Using local XML file');
 		response = await fetch(`http://localhost:5173/CS 64046034_raw.xml`);
 	} else {
-		response = await fetch(`${KMUTNB_API}${courseId}`);
+		try {
+			response = await fetch(`${KMUTNB_API}${courseId}`);
+		} catch (error) {
+			return {
+				status: 'error',
+				error: {
+					message: 'ไม่สามารถดึงข้อมูลจาก klogic ได้ (ลองใหม่ๆๆ)'
+				}
+			};
+		}
 	}
-
+asdsa
 	const xml = await response.arrayBuffer();
 	const utf8XML = convertTISToUTF8(xml);
 
