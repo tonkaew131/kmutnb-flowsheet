@@ -136,8 +136,8 @@
 		</div>
 
 		<div class="flex flex-col">
-			<p class="font-bold">ภาษา (EN/TH)</p>
-			<SlideToggle name="slide" bind:checked={isThai} />
+			<p class="font-bold">ภาษา <span class="opacity-50">(EN/TH)</span></p>
+			<SlideToggle name="slide" bind:checked={isThai} active="bg-primary-500" />
 		</div>
 	</div>
 
