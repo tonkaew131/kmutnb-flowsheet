@@ -26,7 +26,7 @@ export const load = (async ({ params }) => {
 			};
 		}
 	}
-asdsa
+
 	const xml = await response.arrayBuffer();
 	const utf8XML = convertTISToUTF8(xml);
 
