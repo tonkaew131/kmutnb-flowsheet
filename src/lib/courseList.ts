@@ -3,9 +3,14 @@ export const courseList: CourseListData = {};
 interface CourseListData {
 	[key: string]: {
 		name: string;
-		majors: {
+		departments: {
 			[key: string]: {
 				name: string;
+				curriculums: {
+					[key: string]: {
+						name: string;
+					};
+				};
 			};
 		};
 	};
