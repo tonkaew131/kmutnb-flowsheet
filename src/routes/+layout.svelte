@@ -27,6 +27,7 @@
 
 <Analytics />
 <Modal
+	width="w-full max-w-7xl"
 	regionHeader="font-noto font-bold text-2xl"
 	regionBody="font-noto whitespace-pre-line"
 	regionFooter="font-noto"
