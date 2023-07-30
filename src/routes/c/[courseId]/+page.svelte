@@ -7,7 +7,7 @@
 		getNode,
 		type CoursePlan
 	} from '$lib/types/curriculum';
-	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+	import { Accordion, AccordionItem, modalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -73,6 +73,19 @@
 			};
 		};
 		totalCols: number;
+	}
+
+	function onClickSubject(subjectCode: string) {
+		const subject = getSubject(curriculumData, subjectCode);
+		if (!subject) return;
+
+		const modal: ModalSettings = {
+			type: 'alert',
+			// Data
+			title: `${subjectCode} - ${subject?.NameThai._text} ${subject?.Crd_Lec._text}(${subject?.Crd_Lec._text}-${subject?.Crd_Lab._text})`,
+			body: `- ${subject.NameEng._text} (${subject.ShrtName._text})\n\n- ${subject.DescThai._text}\n\n- ${subject.DescEng._text}`
+		};
+		modalStore.trigger(modal);
 	}
 </script>
 
@@ -140,21 +153,26 @@
 							<td
 								class="card border-b-4 border-x-4 border-surface-50 min-w-[11rem] w-[calc(100%_/_8)]"
 							>
-								<p class="font-bold">
-									{sj._attributes.code}
-								</p>
-								<p class="italic max-w-[15rem] whitespace-normal">
-									{#if getSubject(curriculumData, sj._attributes.code)}
-										{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
-										{subjectData?.NameThai._text}
-										{subjectData?.Crd_Lec._text}({subjectData?.Crd_Lec._text}-{getSubject(
-											curriculumData,
-											sj._attributes.code
-										)?.Crd_Lab._text})
-									{:else}
-										{getNode(curriculumData, sj.Block._text)?.NameThai._text}
-									{/if}
-								</p>
+								<button
+									on:click={(e) => onClickSubject(sj._attributes.code)}
+									class="hover:cursor-pointer text-left w-full h-full"
+								>
+									<p class="font-bold">
+										{sj._attributes.code}
+									</p>
+									<p class="italic max-w-[15rem] whitespace-normal">
+										{#if getSubject(curriculumData, sj._attributes.code)}
+											{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
+											{subjectData?.NameThai._text}
+											{subjectData?.Crd_Lec._text}({subjectData?.Crd_Lec._text}-{getSubject(
+												curriculumData,
+												sj._attributes.code
+											)?.Crd_Lab._text})
+										{:else}
+											{getNode(curriculumData, sj.Block._text)?.NameThai._text}
+										{/if}
+									</p>
+								</button>
 							</td>
 						{/each}
 					</tr>
