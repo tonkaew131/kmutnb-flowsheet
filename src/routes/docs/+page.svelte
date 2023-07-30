@@ -147,8 +147,8 @@
 		<h2 class="mb-2">โครงสร้าง XML XML</h2>
 		<blockquote class="blockquote border-error-500">
 			ยังไม่เสร็จ 😭😭 ดู <a
-				href="https://github.com/tonkaew131/kmutnb-flowsheet/blob/main/src/lib/course.ts"
-				>course.ts</a
+				href="https://github.com/tonkaew131/kmutnb-flowsheet/blob/main/src/lib/types/curriculum.ts"
+				>curriculum.ts</a
 			> แทนก่อน
 		</blockquote>
 
