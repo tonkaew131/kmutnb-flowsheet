@@ -20,7 +20,7 @@
 
 	<meta property="og:title" content="KMUTNB Flowsheet by @tonkaew131" />
 	<meta property="og:description" content="KMUTNB Flowsheet by @tonkaew131" />
-	<meta property="og:image" content="/favicon.png" />
+	<meta property="og:image" content="/banner.png" />
 	<meta property="og:url" content="https://kmutnb-flowsheet.vercel.app/" />
 	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
