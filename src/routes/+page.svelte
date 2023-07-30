@@ -46,7 +46,7 @@
 </script>
 
 <div class="container h-full mx-auto flex flex-col justify-center items-center font-noto">
-	<form on:submit|preventDefault={onSubmit}>
+	<form on:submit|preventDefault={onSubmit} class="w-11/12 max-w-fit">
 		<label>
 			<span class="font-bold">คณะ</span>
 			<select class="select" on:change={onSelectFaculty}>
