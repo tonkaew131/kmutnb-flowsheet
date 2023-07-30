@@ -78,7 +78,7 @@
 				[colsNum: string]: CoursePlan;
 			};
 		};
-		totalCols: number;
+		totalCols?: number;
 	}
 
 	function onClickSubject(subjectCode: string) {
@@ -168,34 +168,38 @@
 			<tbody>
 				{#each Object.keys(tableData.rows) as rw}
 					<tr
-						class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0 !border-b-transparent"
+						class="[&>*:first-child]:border-l-0 [&>*:last-child]:border-r-0 !border-b-transparent !bg-transparent"
 					>
-						{#each Object.keys(tableData.rows[rw]) as cl}
-							{@const sj = tableData.rows[rw][cl]}
-							<td
-								class="card border-b-4 border-x-4 border-surface-50 min-w-[11rem] w-[calc(100%_/_8)] hover:bg-primary-200"
-							>
-								<button
-									on:click={(e) => onClickSubject(sj._attributes.code)}
-									class="hover:cursor-pointer text-left w-full h-full"
+						{#each Array.from({ length: tableData.totalCols || 0 }, (_, i) => i + 1) as cl}
+							{#if cl in tableData.rows[rw]}
+								{@const sj = tableData.rows[rw][cl]}
+								<td
+									class="card border-b-4 border-x-4 border-surface-50 min-w-[11rem] w-[calc(100%_/_8)] hover:bg-primary-200"
 								>
-									<p class="font-bold">
-										{sj._attributes.code}
-									</p>
-									<p class="italic max-w-[15rem] whitespace-normal">
-										{#if getSubject(curriculumData, sj._attributes.code)}
-											{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
-											{isThai ? subjectData?.NameThai._text : subjectData?.NameEng._text}
-											{subjectData?.Crd_Lec._text}({subjectData?.Crd_Lec._text}-{getSubject(
-												curriculumData,
-												sj._attributes.code
-											)?.Crd_Lab._text})
-										{:else}
-											{getNode(curriculumData, sj.Block._text)?.NameThai._text}
-										{/if}
-									</p>
-								</button>
-							</td>
+									<button
+										on:click={(e) => onClickSubject(sj._attributes.code)}
+										class="hover:cursor-pointer text-left w-full h-full"
+									>
+										<p class="font-bold">
+											{sj._attributes.code}
+										</p>
+										<p class="italic max-w-[15rem] whitespace-normal">
+											{#if getSubject(curriculumData, sj._attributes.code)}
+												{@const subjectData = getSubject(curriculumData, sj._attributes.code)}
+												{isThai ? subjectData?.NameThai._text : subjectData?.NameEng._text}
+												{subjectData?.Crd_Lec._text}({subjectData?.Crd_Lec._text}-{getSubject(
+													curriculumData,
+													sj._attributes.code
+												)?.Crd_Lab._text})
+											{:else}
+												{getNode(curriculumData, sj.Block._text)?.NameThai._text}
+											{/if}
+										</p>
+									</button>
+								</td>
+							{:else}
+								<td class="!bg-transparent" />
+							{/if}
 						{/each}
 					</tr>
 				{/each}
