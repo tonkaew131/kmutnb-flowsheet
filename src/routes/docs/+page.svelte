@@ -115,7 +115,7 @@
 </script>
 
 <article class="prose prose-lg mx-auto py-36 font-noto w-11/12">
-	<h1>KMUTNB's Course XML</h1>
+	<h1>KMUTNB's Course XML Documentation</h1>
 	<a href="/converter">
 		<button class="btn variant-filled-primary">TIS-620 Converter</button>
 	</a>
@@ -129,18 +129,32 @@
 		</ul>
 	</div>
 
-	<div>
+	<div id="download">
 		<h2 class="mb-2">โหลดไฟล์ XML</h2>
-		<p class="">
+		<p class="mb-2">
 			http://klogic.kmutnb.ac.th:8080/kris/curri/showXML.jsp?currCode=<code
 				class="code before:content-[''] after:content-['']">COURSE_ID</code
 			>
 		</p>
-		<blockquote class="blockquote border-primary-500">
+		<blockquote class="blockquote border-primary-500 my-0">
 			ตัวอย่าง: <a href="http://klogic.kmutnb.ac.th:8080/kris/curri/showXML.jsp?currCode=64046034"
 				>http://klogic.kmutnb.ac.th:8080/kris/curri/showXML.jsp?currCode=64046034</a
 			>
 		</blockquote>
+		<div class="relative my-4">
+			<div
+				class="w-full h-[2px] -z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-success-500 rounded-full"
+			/>
+			<p class="px-2 bg-surface-50 w-fit mx-auto my-0">หรือ</p>
+		</div>
+		<a href="/how_to_download_klogic.png">
+			<img
+				src="/how_to_download_klogic.png"
+				alt="How to download XML Curriculumn on klogic"
+				class="my-0"
+			/>
+		</a>
+		<p class="my-0 text-center mt-1 font-bold">กดโหลดใน klogic</p>
 	</div>
 
 	<div class="table-container">
